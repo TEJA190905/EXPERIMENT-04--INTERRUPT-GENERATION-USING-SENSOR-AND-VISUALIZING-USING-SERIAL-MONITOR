@@ -135,31 +135,37 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 
-#if defined(__GNUC__)
+#if defined(_GNUC_)
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 #endif
+
 int main(void)
 {
-  HAL_Init();                 
-  SystemClock_Config();      
-  MX_GPIO_Init();            
-  MX_USART2_UART_Init();      
+  HAL_Init();
+
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
 
   while (1)
-  {        
+  {
+
   }
 }
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_PIN)
-{
-	if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==1)
-	{
-		printf("INTERUPT GENERATED \n");
 
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_4) == 1)
+	{
+		printf("INTERRUPT GENERATED \n");
 	}
 }
+
 PUTCHAR_PROTOTYPE
 {
-	HAL_UART_Transmit(&huart2, (uint8_t*)&ch,1,0xFFFF);
+	HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
 	return ch;
 }
 ```
